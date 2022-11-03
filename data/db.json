@@ -14,8 +14,32 @@
       
         {
             "id": 3,
-            "name": "vishnu",
-            "email": "vishnu@gmail.com"
+            "name": "praseejan",
+            "email": "praseejan@gmail.com"
+        },
+
+        {
+            "id": 4,
+            "name": "karthik",
+            "email": "karthik@gmail.com"
+        },
+
+        {
+            "id": 5,
+            "name": "lenin",
+            "email": "lenin@gmail.com"
+        },
+
+        {
+            "id": 6,
+            "name": "akhil",
+            "email": "akhil@gmail.com"
+        },
+
+        {
+            "id": 7,
+            "name": "visakh",
+            "email": "visakh@gmail.com"
         }
 
 
