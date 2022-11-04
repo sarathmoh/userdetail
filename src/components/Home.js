@@ -4,8 +4,11 @@ import { listUsers } from '../redux/actions';
 import { useEffect } from 'react';
 import Details from './Details'
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+
  
 const Home = () => {
+const navigate=useNavigate();  
 const {users}  =useSelector(state=>state.users) 
 console.log("users",users);
 const dispatch=useDispatch();    
@@ -17,12 +20,18 @@ const list= users.map((item)=>{
 
   return <Details key={item.id} name={item.name} id={item.id} email={item.email}/>
   })
+
+  const adduser=()=>{
+   navigate('/adduser')
+  }
   return (
    
     <>
      <u><h1>CONTACT MANAGER</h1></u>
-
-     <Button variant="contained" >ADD CONTACT</Button>
+     <div>
+     <Button variant="contained" onClick={adduser}>ADD CONTACT</Button>
+     </div>
+     
      {list} 
     </>
   )

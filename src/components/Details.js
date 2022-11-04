@@ -1,20 +1,29 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useDispatch } from 'react-redux';
+import { deleteUsers} from '../redux/actions';
 
 
-const Details = ({ _id, name, email }) => {
+const Details = ({ id, name, email }) => {
+const dispatch=useDispatch();
+const deleteHandler=(id)=>{
+  if(window.confirm(`ARE YOU SURE WANT TO DELETE USER:${name}`)){
+    dispatch(deleteUsers(id));
+  }
+}
     return (
         <div>
 
           <Card>
-      <Card.Header as="h5">Featured</Card.Header>
+      <Card.Header as="h5">{id}</Card.Header>
       <Card.Body>
-        <Card.Title>Special title treatment</Card.Title>
+        <Card.Title>{name}</Card.Title>
         <Card.Text>
-          With supporting text below as a natural lead-in to additional content.
+        {email}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Button variant="primary">Update</Button>
+        <Button variant="primary" onClick={()=>deleteHandler(id)} >Delete</Button>
       </Card.Body>
     </Card>  
       

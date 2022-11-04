@@ -1,47 +1,24 @@
 {
-    "details": [
-        {
-            "id": 1,
-            "name": "sarathmohan",
-            "email": "esarathmohan@gmail.com"
-        },
-        {
-            "id": 2,
-            "name": "manjunath",
-            "email": "manjunath@gmail.com"
-        },
-
-      
-        {
-            "id": 3,
-            "name": "praseejan",
-            "email": "praseejan@gmail.com"
-        },
-
-        {
-            "id": 4,
-            "name": "karthik",
-            "email": "karthik@gmail.com"
-        },
-
-        {
-            "id": 5,
-            "name": "lenin",
-            "email": "lenin@gmail.com"
-        },
-
-        {
-            "id": 6,
-            "name": "akhil",
-            "email": "akhil@gmail.com"
-        },
-
-        {
-            "id": 7,
-            "name": "visakh",
-            "email": "visakh@gmail.com"
-        }
-
-
-    ]
+  "details": [
+    {
+      "id": 5,
+      "name": "lenin",
+      "email": "lenin@gmail.com"
+    },
+    {
+      "id": 7,
+      "name": "visakh",
+      "email": "visakh@gmail.com"
+    },
+    {
+      "name": "sarath",
+      "email": "sarath@gmail.com",
+      "id": 8
+    },
+    {
+      "name": "vishnu",
+      "email": "vishnu@gmail.com",
+      "id": 9
+    }
+  ]
 }
