@@ -1,24 +1,9 @@
 {
   "details": [
     {
-      "id": 5,
-      "name": "lenin",
-      "email": "lenin@gmail.com"
-    },
-    {
-      "id": 7,
-      "name": "visakh",
-      "email": "visakh@gmail.com"
-    },
-    {
-      "name": "sarath",
-      "email": "sarath@gmail.com",
-      "id": 8
-    },
-    {
-      "name": "vishnu",
-      "email": "vishnu@gmail.com",
-      "id": 9
+      "name": "praseejan",
+      "email": "praseejan@gmail.con",
+      "id": 1
     }
   ]
 }

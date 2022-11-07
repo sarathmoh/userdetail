@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const registerValidation = Yup.object({
+export const userValidation= Yup.object({
 
    name:Yup.string()
   .max(15,'Must be 15 Characters or Less')
