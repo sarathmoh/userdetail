@@ -4,26 +4,32 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik} from 'formik';
 import { userValidation } from '../schema/update';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import { modifiedUser, updateUser } from '../redux/actions';
 
-const initialValues = {
-   
-    name: "",
-    email: "",
-  
-  };
 const Update = () => {
-const {id:userid}=useParams();
+const {user}=useSelector((state)=>state.users) 
+const dispatch=useDispatch(); 
+const {id}=useParams();
+const navigate=useNavigate();
+useEffect(()=>{
+dispatch(updateUser(id));
+},[])
  
 const { values, errors, touched, handleBlur, handleChange, handleSubmit } =  
 useFormik({
-    initialValues,
+    initialValues:{
+       name:user.name,
+       email:user.email
+    },
     validationSchema: userValidation,
   
    onSubmit:(values,action) => {
    
-      console.log(values);
-    //   dispatch(addUsers(values));
-    //   navigate('/');
+    console.log(values);
+    dispatch(modifiedUser(values,id));
+    navigate('/');
       
      action.resetForm();
     },

@@ -17,7 +17,18 @@ const addedUsers=()=>({
     
   })
   
+
+  const updatedUser=(user)=>({
+    type:types.UPDATE_USERS,
+    payload:user,
+    
+  })
   
+  
+const latestUser=()=>({
+  type:types.MODIFIED_USERS,
+  
+})
 
 
 export const listUsers=()=>{
@@ -51,4 +62,28 @@ export const addUsers=(user)=>{
     }) 
     .catch((error)=> console.log(error))
     }
+}
+
+
+export const updateUser=(id)=>{
+    return function(dispatch){
+    axios.get(`http://localhost:8000/details/${id}`).then((res)=>{
+    console.log("response",res);
+    dispatch(updatedUser(res.data))  
+    // dispatch(listUsers());  
+    }) 
+    .catch((error)=> console.log(error))
+    }
+}
+
+
+export const modifiedUser=(user,id)=>{
+  return function(dispatch){
+  axios.put(`http://localhost:8000/details/${id}`,user).then((res)=>{
+  console.log("response",res);
+  dispatch(latestUser())  
+  // dispatch(listUsers());  
+  }) 
+  .catch((error)=> console.log(error))
+  }
 }

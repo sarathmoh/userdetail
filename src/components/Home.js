@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
 const navigate=useNavigate();  
 const {users}  =useSelector(state=>state.users) 
-console.log("users",users);
 const dispatch=useDispatch();    
 useEffect(()=>{
 dispatch(listUsers())    

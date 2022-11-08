@@ -22,7 +22,7 @@ useFormik({
   
    onSubmit:(values,action) => {
    
-      console.log(values);
+    
       dispatch(addUsers(values));
       navigate('/');
 
