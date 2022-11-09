@@ -4,30 +4,32 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik} from 'formik';
 import { userValidation } from '../schema/update';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { modifiedUser, updateUser } from '../redux/actions';
+import { modifiedUser,updateUser} from '../redux/actions';
+import { useEffect } from 'react';
+
 
 const Update = () => {
-const {user}=useSelector((state)=>state.users) 
+const {user}=useSelector((state)=>state.users)  
 const dispatch=useDispatch(); 
 const {id}=useParams();
 const navigate=useNavigate();
 useEffect(()=>{
-dispatch(updateUser(id));
-},[])
- 
-const { values, errors, touched, handleBlur, handleChange, handleSubmit } =  
+  dispatch(updateUser(id))
+  },[]) 
+
+const { values, errors, touched, handleBlur, handleChange, handleSubmit } =    
 useFormik({
-    initialValues:{
+       
+       initialValues:{
        name:user.name,
-       email:user.email
+       email:user.email,
     },
     validationSchema: userValidation,
   
    onSubmit:(values,action) => {
    
-    console.log(values);
+    // console.log(values);
     dispatch(modifiedUser(values,id));
     navigate('/');
       
@@ -48,7 +50,7 @@ useFormik({
  name="name"
  id="name" className='form-control mb-4'
  placeholder="Enter your name"
- value={values.name}
+ value={values.name|| ""}
  onChange={handleChange}
  onBlur={handleBlur}/>
  {errors.name && touched.name ? (
@@ -66,7 +68,7 @@ useFormik({
  id="email"
  placeholder="Enter Your Email"
  className='form-control mb-4'
- value={values.email}
+ value={values.email || ""}
  onChange={handleChange}
  onBlur={handleBlur}/>
  {errors.email && touched.email ? (

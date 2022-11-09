@@ -47,14 +47,14 @@ export const deleteUsers=(id)=>{
     axios.delete(`http://localhost:8000/details/${id}`).then((res)=>{
     console.log("response",res);
     dispatch(deletedUsers(res.data))  
-    dispatch(listUsers());  
+    dispatch(listUsers());
     }) 
     .catch((error)=> console.log(error))
     }
 }
 
 export const addUsers=(user)=>{
-    return function(dispatch){
+    return function(dispatch){  
     axios.post("http://localhost:8000/details",user).then((res)=>{
     console.log("response",res);
     dispatch(addedUsers(res.data))  
@@ -70,7 +70,6 @@ export const updateUser=(id)=>{
     axios.get(`http://localhost:8000/details/${id}`).then((res)=>{
     console.log("response",res);
     dispatch(updatedUser(res.data))  
-    // dispatch(listUsers());  
     }) 
     .catch((error)=> console.log(error))
     }
