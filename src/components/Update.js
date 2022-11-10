@@ -5,25 +5,41 @@ import { useFormik} from 'formik';
 import { userValidation } from '../schema/update';
 import { useParams } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
-import { modifiedUser,updateUser} from '../redux/actions';
-import { useEffect } from 'react';
+import { modifiedUser} from '../redux/actions';
+// import { useEffect } from 'react';
 
 
 const Update = () => {
-const {user}=useSelector((state)=>state.users)  
+
 const dispatch=useDispatch(); 
 const {id}=useParams();
 const navigate=useNavigate();
-useEffect(()=>{
-  dispatch(updateUser(id))
-  },[]) 
+// useEffect(()=>{
+//   dispatch(updateUser(id))
+//   },[]) 
 
+// const expenses=useSelector(allExpenses)
+//   const firstArray=expenses.find(item=>{
+//    return item.expenseid===expenseid;
+//   })
+
+
+
+const count=useSelector((state)=>state.users)
+const {users}=count;  
+console.log("users",users);
+const getItem=users.find(item=>{
+return item.id===id;
+})
+// console.log("id",id);
+// console.log("count",count);
+// console.log("getitem",getItem);
 const { values, errors, touched, handleBlur, handleChange, handleSubmit } =    
 useFormik({
        
        initialValues:{
-       name:user.name,
-       email:user.email,
+       name:getItem.name,
+       email:getItem.email,
     },
     validationSchema: userValidation,
   

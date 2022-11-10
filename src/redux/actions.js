@@ -66,8 +66,8 @@ export const addUsers=(user)=>{
 
 
 export const updateUser=(id)=>{
-    return function(dispatch){
-    axios.get(`http://localhost:8000/details/${id}`).then((res)=>{
+return async function(dispatch){
+   await axios.get(`http://localhost:8000/details/${id}`).then((res)=>{
     console.log("response",res);
     dispatch(updatedUser(res.data))  
     }) 

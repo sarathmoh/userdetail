@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { deleteUsers } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import {updateUser} from '../redux/actions';
+
 
 
 
@@ -25,6 +27,7 @@ const Details = ({ id, name, email }) => {
   
 
   const updatingUser = () => {
+    // dispatch(updateUser(id));
     navigate(`/updateuser/${id}`)
   }
 
