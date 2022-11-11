@@ -4,8 +4,8 @@ import { BrowserRouter,Route,Routes } from 'react-router-dom';
 import Details from './components/Details';
 import Adduser from './components/Adduser'
 import Update from './components/Update';
-// import List from './components/Detail';
-// import Detail from './components/List'
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -16,23 +16,10 @@ function App() {
         <Route path="details" element={<Details/>}/>
         <Route path="adduser" element={<Adduser/>}/>
         <Route path="updateuser/:id" element={<Update/>}/>
-        
-        
-        
         </Routes>
         </BrowserRouter> 
-
-   
-
-
-
-
-
-
-
-
-
-    </div>
+        <ToastContainer />
+  </div>
   );
 }
 

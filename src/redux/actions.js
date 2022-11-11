@@ -1,5 +1,6 @@
 import * as types from './action-types';
-import axios from 'axios';
+import userApi from '../api/userApi';
+
 const getUsers=(users)=>({
     type:types.GET_USERS,
     payload:users,
@@ -17,13 +18,6 @@ const addedUsers=()=>({
     
   })
   
-
-  const updatedUser=(user)=>({
-    type:types.UPDATE_USERS,
-    payload:user,
-    
-  })
-  
   
 const latestUser=()=>({
   type:types.MODIFIED_USERS,
@@ -32,8 +26,8 @@ const latestUser=()=>({
 
 
 export const listUsers=()=>{
-    return function(dispatch){
-    axios.get("http://localhost:8000/details").then((res)=>{
+    return async function(dispatch){
+    await userApi.get("/details").then((res)=>{
     console.log("response",res);
     dispatch(getUsers(res.data))    
     }) 
@@ -43,8 +37,8 @@ export const listUsers=()=>{
 
 
 export const deleteUsers=(id)=>{
-    return function(dispatch){
-    axios.delete(`http://localhost:8000/details/${id}`).then((res)=>{
+    return async function(dispatch){
+    await userApi.delete(`/details/${id}`).then((res)=>{
     console.log("response",res);
     dispatch(deletedUsers(res.data))  
     dispatch(listUsers());
@@ -54,31 +48,20 @@ export const deleteUsers=(id)=>{
 }
 
 export const addUsers=(user)=>{
-    return function(dispatch){  
-    axios.post("http://localhost:8000/details",user).then((res)=>{
-    console.log("response",res);
-    dispatch(addedUsers(res.data))  
-    // dispatch(listUsers());  
-    }) 
-    .catch((error)=> console.log(error))
-    }
-}
-
-
-export const updateUser=(id)=>{
-return async function(dispatch){
-   await axios.get(`http://localhost:8000/details/${id}`).then((res)=>{
-    console.log("response",res);
-    dispatch(updatedUser(res.data))  
-    }) 
+return async function(dispatch){  
+await userApi.post("/details",user).then((res)=>{
+console.log("response",res);
+localStorage.setItem('user',res.data.id);
+dispatch(addedUsers(res.data))  
+  }) 
     .catch((error)=> console.log(error))
     }
 }
 
 
 export const modifiedUser=(user,id)=>{
-  return function(dispatch){
-  axios.put(`http://localhost:8000/details/${id}`,user).then((res)=>{
+  return async function(dispatch){
+   await userApi.put(`http://localhost:8000/details/${id}`,user).then((res)=>{
   console.log("response",res);
   dispatch(latestUser())  
   // dispatch(listUsers());  

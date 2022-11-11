@@ -23,13 +23,7 @@ const userReducers = (state = initialState, action) => {
         loading: false
       }
 
-    case types.UPDATE_USERS:
-      return {
-        ...state,
-        user: action.payload,
-        loading: false
-
-      }
+  
     case types.MODIFIED_USERS:
 
 

@@ -3,55 +3,59 @@ import Card from 'react-bootstrap/Card';
 import { useDispatch } from 'react-redux';
 import { deleteUsers } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import {updateUser} from '../redux/actions';
-
-
-
-
-
-
+import { Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 const Details = ({ id, name, email }) => {
-
-
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const deleteHandler = (id) => {
-    if (window.confirm(`ARE YOU SURE WANT TO DELETE USER:${name}`)) {
+  toast.warning(`Deleted user ${name}`)
       dispatch(deleteUsers(id));
-    }
+    
   }
-
-  
 
   const updatingUser = () => {
-    // dispatch(updateUser(id));
-    navigate(`/updateuser/${id}`)
+  navigate(`/updateuser/${id}`)
   }
-
-
+  
   return (
-    <div>
+    <Card style={{ width: '18rem' }}>
+      <Card.Body>
+        <Card.Title>Details of {name}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">Nickname:{name}</Card.Subtitle>
+        <Card.Text>
+         Personal email:{email}
+        </Card.Text>
+        <Button className='mx-2' variant="outline-info " onClick={updatingUser} >Update</Button>
+        <Button variant="outline-danger" onClick={() => deleteHandler(id)} >Delete</Button>
+      </Card.Body>
+    </Card>
+  );
+}
 
-      <Card>
+export default Details
 
 
+
+
+
+
+
+
+
+
+
+      {/* <Card>
         <Card.Header as="h5">{id}</Card.Header>
         <Card.Body>
           <Card.Title>{name}</Card.Title>
           <Card.Text>
             {email}
           </Card.Text>
-          <Button variant="contained" onClick={updatingUser} >Update</Button>
-          <Button variant="contained" onClick={() => deleteHandler(id)} >Delete</Button>
+          <Button variant="outline-primary" onClick={updatingUser} >Update</Button>
+          <Button variant="outline-primary" onClick={() => deleteHandler(id)} >Delete</Button>
         </Card.Body>
-      </Card>
+      </Card> */}
 
-    </div>
-
-  )
-}
-
-export default Details

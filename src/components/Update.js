@@ -6,116 +6,89 @@ import { userValidation } from '../schema/update';
 import { useParams } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import { modifiedUser} from '../redux/actions';
-// import { useEffect } from 'react';
-
+import {toast} from 'react-toastify';
+import three from '../assets/undraw_interaction_design_odgc.svg';
+import four from '../assets/undraw_swipe_re_vhc5.svg';
 
 const Update = () => {
-
 const dispatch=useDispatch(); 
 const {id}=useParams();
 const navigate=useNavigate();
-// useEffect(()=>{
-//   dispatch(updateUser(id))
-//   },[]) 
-
-// const expenses=useSelector(allExpenses)
-//   const firstArray=expenses.find(item=>{
-//    return item.expenseid===expenseid;
-//   })
-
-
-
 const count=useSelector((state)=>state.users)
 const {users}=count;  
 console.log("users",users);
 const getItem=users.find(item=>{
-return item.id===id;
+return item.id===JSON.parse(id);
 })
-// console.log("id",id);
-// console.log("count",count);
-// console.log("getitem",getItem);
 const { values, errors, touched, handleBlur, handleChange, handleSubmit } =    
 useFormik({
        
-       initialValues:{
-       name:getItem.name,
-       email:getItem.email,
+    initialValues:{
+    name:getItem.name,
+    email:getItem.email,
     },
-    validationSchema: userValidation,
-  
-   onSubmit:(values,action) => {
-   
-    // console.log(values);
-    dispatch(modifiedUser(values,id));
-    navigate('/');
-      
-     action.resetForm();
+  validationSchema: userValidation,
+  onSubmit:(values,action) => {
+  dispatch(modifiedUser(values,id));
+  navigate('/');
+  toast.success("Updated the user successfully");
+  action.resetForm();
     },
  });
      
   return (
-    <Container className="contain">
+<Container className='mt-3'>
   <Row>
-  <Col lg={4} md={6} sm={12} className="text-left  mt-2" >
+  <Col className="text-left"  lg={6} md={8} sm={12}>
+  <h3 className='font-weight-4 mt-4 mb-5 head '>Hey update your Details here!!!</h3>
+  <img className='w-75 mt-5' src={three} alt="icon"/> 
+  </Col>
+    
+  <Col className="mt-5"   lg={6} md={6} sm={12} >
+   <img src={four} alt="addpic" className='addexpense w-75 mt-1 '/> 
   <form onSubmit={handleSubmit}>
+  <div>
+  <input
+  type="text"
+  autoComplete="off"
+  name="name"
+  id="name"
+  className='form-control mb-3'
+  placeholder="Enter your name"
+  value={values.name}
+  onChange={handleChange}
+  onBlur={handleBlur}
+  // className={errors.name && touched.name ? "input-error" : ""}              
+  />
+  {errors.name && touched.name && <p className='error'>{errors.name}</p>}
+  </div>
 
 <div>
 <input
- type="text"
- autoComplete="off"
- name="name"
- id="name" className='form-control mb-4'
- placeholder="Enter your name"
- value={values.name|| ""}
- onChange={handleChange}
- onBlur={handleBlur}/>
- {errors.name && touched.name ? (
- <p className="form-error">{errors.name}</p>
-) : null}
+type="email"
+autoComplete="off"
+name="email"
+id="email"
+className='form-control mb-3'
+placeholder="Enter Your Email"
+value={values.email}
+onChange={handleChange}
+onBlur={handleBlur}
+// className={errors.email && touched.email ? "input-error" : ""}
+/>
+{errors.email && touched.email && <p className='error'>{errors.email}</p>}
 </div>
-
-
-
-<div>  
-<input
- type="email"
- autoComplete="off"
- name="email"
- id="email"
- placeholder="Enter Your Email"
- className='form-control mb-4'
- value={values.email || ""}
- onChange={handleChange}
- onBlur={handleBlur}/>
- {errors.email && touched.email ? (
- <p className="form-error">{errors.email}</p>
-) : null}
-</div>  
-
-
 <div className="d-grid gap-2 mb-4">
 <Button variant="primary" size="md" type='submit' >
 Update 
-</Button> 
+</Button>
 </div>
 </form>
-     
-
-   
-
-
-
-
-
-
-
-
-
-  </Col>
-
-  </Row>
-  </Container>
+</Col>
+</Row>
+</Container>
   )
+  
 }
 
 export default Update

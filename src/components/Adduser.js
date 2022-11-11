@@ -1,142 +1,108 @@
 import React from 'react';
-import { useFormik} from 'formik';
-import {Addusers}from '../schema/adduser';
-import { Col,Row,Container,Button} from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import { Addusers } from '../schema/adduser';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUsers } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify';
+import {Row,Col,Container,Button} from 'react-bootstrap';
+import one from '../assets/undraw_connected_re_lmq2.svg';
+import two from '../assets/undraw_design_tools_-42-tf.svg';
 
 const initialValues = {
-   
-    name: "",
-    email: "",
-  
-  };
-const Adduser = () => {   
-const navigate=useNavigate();  
-const dispatch=useDispatch();  
-const { values, errors, touched, handleBlur, handleChange, handleSubmit } =    
-useFormik({
-    initialValues,
-    validationSchema: Addusers,
-  
-   onSubmit:(values,action) => {
-   
-    
-      dispatch(addUsers(values));
-      navigate('/');
+
+  name: "",
+  email: "",
+
+};
+const Adduser = () => {
+  const { users } = useSelector((state) => state.users)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: Addusers,
+
+      onSubmit: (values, action) => {
 
 
 
-  //     try{
-  //       const response= await axios.post("https://protected-shore-01446.herokuapp.com/auth/login",values);
+        const exist = users.find((item) => {
+          return item.email === values.email;
+        });
 
+
+        if (!exist) {
+          dispatch(addUsers(values));
+          toast.success("Added a new user");
+          navigate('/');
        
-       
-  //      if(response.status===200){
+        } else {
+          toast.error("Bad user credential user exists")
+        }
 
-  //         localStorage.setItem('token',response.data);
-
-  //         alert("Login successful");
-  //         navigate('/');
-
-  //       }
-      
-
-  //  }
-  
-  // catch(error){
-  //   if(!error.response){
-
-  //     alert("network error");
-
-  //   }
-  //  else if(error.response.status===401){
-  //     alert(error.response.data);
-
-  //   }
-  //   else if(error.response.status===404){
-  //     alert(error.response.data);
-
-  //   }
-  //   else{
-  //     alert("error");
-  //   }
-  // }
-
-
-     action.resetForm();
-     },
-  });
+        action.resetForm();
+      },
+    });
 
 
 
   return (
-  <Container className="contain">
+
+  <Container className='mt-3'>
   <Row>
-  <Col lg={4} md={6} sm={12} className="text-left  mt-2" >
-  
-
-
-<form onSubmit={handleSubmit}>
+  <Col className="text-left"  lg={6} md={8} sm={12}>
+  <h3 className='font-weight-4 mt-4 mb-5 head '>Hey add your Details here!!!</h3>
+  <img className='w-75 mt-5' src={one} alt="icon"/> 
+  </Col>
+    
+  <Col className="mt-5"   lg={6} md={6} sm={12} >
+   <img src={two} alt="addpic" className='addexpense w-75 mt-4 '/> 
+  <form onSubmit={handleSubmit}>
+  <div>
+  <input
+  type="text"
+  autoComplete="off"
+  name="name"
+  id="name"
+  className='form-control mb-3'
+  placeholder="Enter your name"
+  value={values.name}
+  onChange={handleChange}
+  onBlur={handleBlur}
+  // className={errors.name && touched.name ? "input-error" : ""}              
+  />
+  {errors.name && touched.name && <p className='error'>{errors.name}</p>}
+  </div>
 
 <div>
 <input
- type="text"
- autoComplete="off"
- name="name"
- id="name" className='form-control mb-4'
- placeholder="Enter your name"
- value={values.name}
- onChange={handleChange}
- onBlur={handleBlur}/>
- {errors.name && touched.name ? (
- <p className="form-error">{errors.name}</p>
-) : null}
+type="email"
+autoComplete="off"
+name="email"
+id="email"
+className='form-control mb-3'
+placeholder="Enter Your Email"
+value={values.email}
+onChange={handleChange}
+onBlur={handleBlur}
+// className={errors.email && touched.email ? "input-error" : ""}
+/>
+{errors.email && touched.email && <p className='error'>{errors.email}</p>}
 </div>
-
-
-
-<div>  
-<input
- type="email"
- autoComplete="off"
- name="email"
- id="email"
- placeholder="Enter Your Email"
- className='form-control mb-4'
- value={values.email}
- onChange={handleChange}
- onBlur={handleBlur}/>
- {errors.email && touched.email ? (
- <p className="form-error">{errors.email}</p>
-) : null}
-</div>  
-
-
 <div className="d-grid gap-2 mb-4">
 <Button variant="primary" size="md" type='submit' >
 Add user
-</Button> 
+</Button>
 </div>
 </form>
-     
-
-   
-
-
-
-
-
-
-
-
-
-  </Col>
-
-  </Row>
-  </Container>
+</Col>
+</Row>
+</Container>
   )
-}
+  }
 
 export default Adduser
+
+
